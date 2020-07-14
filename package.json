@@ -1,6 +1,7 @@
 {
   "name": "apollo-2019",
   "version": "0.1.0",
+  "author":"Brandon Pang<webbug@me.com>",
   "private": true,
   "dependencies": {
     "@apollo/react-hooks": "^3.1.3",
