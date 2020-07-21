@@ -7,28 +7,48 @@ import styled from "styled-components";
 const GET_MOVIE = gql`
   query getMovie($id: Int!) {
     movie(id: $id) {
+      id
       title
       medium_cover_image
       language
       rating
       description_intro
+      isLiked @client
     }    
-    suggestions(id: Int!){
-      rating
-      description_intro
+    suggestions(id: $id) {
+      id
+      title
       medium_cover_image
     }
   }
 `;
 
 const Container = styled.div`
+  padding-top:60px;
+  padding-bottom:60px;
   height: 100vh;
   background-image: linear-gradient(-45deg, #d754ab, #fd723a);
   width: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
+  flex-direction:column;
   color: white;
+`;
+const DetailCont=styled.div`
+  width:100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+`;
+
+const SugCont=styled.div`
+  margin-top:40px;
+  width:100%;  
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  flex-direction:column; 
 `;
 
 const Column = styled.div`
@@ -52,29 +72,63 @@ const Description = styled.p`
 
 const Poster = styled.div`
   width: 30%;
-  height: 60%;
+  height: 500px;
   background-color: transparent;
   background-image: url(${props => props.bg});
   background-size: cover;
   background-position: top center;
 `;
 
+const SugUl=styled.ul`
+  width:100%;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+`;
+
+const SugLi=styled.li`
+  margin:10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
+const SugImg=styled.img`
+  width: 100%;
+  height: auto;
+`;
+const SugTitle=styled.p`
+  font-size: 20px;
+  margin-top: 15px;
+`;
 
 export default () => {  
-  let { id } = useParams();
-  id = parseInt(id);
+  const { id } = useParams();
   const { loading, data } = useQuery(GET_MOVIE, {
-    variables: { id }
+    variables: { id: parseInt(id) }
   });
   
   return (
-    <Container>   
-        <Column> 
-            <Title>{loading ? "Loading..." : data.movie.title}</Title>
+    <Container> 
+      <DetailCont>  
+        <Column>
+            <Title>{loading ? "Loading..." : `${data.movie.title} ${data.movie.isLiked ? "💖" : "🙁"}`}</Title>
             <Subtitle>{data?.movie?.language} · {data?.movie?.rating}</Subtitle>
             <Description>{data?.movie?.description_intro}</Description>
-          </Column>
-      <Poster bg={data?.movie?.medium_cover_image}></Poster>
+        </Column>
+        <Poster bg={data?.movie?.medium_cover_image}></Poster>
+      </DetailCont>
+      <SugCont>
+        <Title>Suggestions</Title>
+        <SugUl>          
+          {data?.suggestions?.map(m => (
+            <SugLi key={m.id}>
+              <SugImg src={m.medium_cover_image} alt="" />
+              <SugTitle>{m.title}</SugTitle>
+            </SugLi>
+          ))}
+        </SugUl>        
+      </SugCont>
     </Container>
   );
 };

@@ -9,6 +9,16 @@ const link = new HttpLink({
 
 const client = new ApolloClient({
     cache,
-    link
+    link,
+    resolvers: {
+      Movie: {
+        isLiked: () => false
+      },
+      Mutation:{
+        toggleLikeMovie: (_, {id, isLiked}, {cache}) => {
+          cache.writeData({id: `Movie:${id}`, data:{isLiked:!isLiked}});
+        }
+      }
+    }
   });
 export default client;
