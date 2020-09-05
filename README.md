@@ -7,6 +7,7 @@ https://dev-movielist.frontdev.co/#/
 
 ### Demo Link (Server SIde)
 Link is GraphQL playground for MovieList app.
+
 https://movie-list-server-side.vercel.app/
 
 ### Spec
