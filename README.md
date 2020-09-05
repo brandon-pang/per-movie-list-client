@@ -2,10 +2,18 @@
 
 Movie App Built with React, Apollo and GraphQL
 
+### Demo Link (Client Side)
+https://dev-movielist.frontdev.co/#/
+
+### Demo Link (Server SIde)
+Link is GraphQL playground for MovieList app.
+https://movie-list-server-side.vercel.app/
+
 ### Spec
 >- React.js
->- Apollo Framework for GraphQL
+>- Apollo Framework
 >- GraphQL
+>- CSS in JS (Styled-componets)
 
 ## Project setup
 ```
