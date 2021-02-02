@@ -3,7 +3,7 @@
 Movie App Built with React, Apollo and GraphQL
 
 ### Demo Link (Client Side)
-https://dev-movielist.frontdev.co/#/
+https://per-movie-list-client.vercel.app/#/
 
 ### Screen shots
 <div>
